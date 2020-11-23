@@ -1,2 +1,2 @@
 # ansible-elasticsearch
-ORTSOC Infra Playbook: Elasticsearch
+ORTSOC Infra Role: Elasticsearch

@@ -1,0 +1,12 @@
+---
+
+- name: configure vm.max_map_count
+  sysctl:
+    name: vm.max_map_count
+    value: "262144"
+
+- name: enable service
+  systemd:
+    name: elasticsearch
+    enabled: yes
+    state: started

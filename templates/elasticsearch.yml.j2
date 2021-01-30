@@ -8,11 +8,11 @@ path.data: /var/log/elasticsearch
 network.host: {{ ansible_host }}
 
 discovery.seed_hosts:
-{% for host in groups[elasticsearch] %}
+{% for host in groups["elasticsearch"] %}
   - {{ host }}
 {% endfor %}
 
 cluster.initial_master_nodes:
-{% for host in groups[elasticsearch] %}
+{% for host in groups["elasticsearch"] %}
   - {{ host.split(".")[0] }}
 {% endfor %}

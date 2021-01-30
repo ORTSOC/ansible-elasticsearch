@@ -1,6 +1,8 @@
 # ansible-elasticsearch
 ORTSOC Infra Role: Elasticsearch
 
+All elasticsearch host must disable all swap files
+
 ## Variables
 
 * `es_cluster_name`: Name of the Elasticseach cluster

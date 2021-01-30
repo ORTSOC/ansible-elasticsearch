@@ -5,6 +5,15 @@
     name: vm.max_map_count
     value: "262144"
 
+- name: generate elasticsearch config
+  ansible.builtin.template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  notify: restart elasticsearch
+
 - name: enable service
   systemd:
     name: elasticsearch

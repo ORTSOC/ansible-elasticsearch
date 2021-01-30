@@ -3,7 +3,7 @@ cluster.name: {{ es_cluster_name }}
 node.name: {{ ansible_hostname.split(".")[0] }}
 
 path.data: /var/lib/elasticsearch
-path.data: /var/log/elasticsearch
+path.log: /var/log/elasticsearch
 
 network.host: {{ ansible_host }}
 

@@ -9,14 +9,14 @@ network.host: {{ ansible_host }}
 
 discovery.seed_hosts:
 {% for host in groups["elasticsearch"] %}
-{% if host.master_eligible %}
+{% if hostvars[host].master_eligible %}
   - {{ host }}
 {% endif %}
 {% endfor %}
 
 cluster.initial_master_nodes:
 {% for host in groups["elasticsearch"] %}
-{% if host.master_eligible %}
+{% if hostvars[host].master_eligible %}
   - {{ host.split(".")[0] }}
 {% endif %}
 {% endfor %}

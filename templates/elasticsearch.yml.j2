@@ -10,8 +10,8 @@ network.host: {{ ansible_host }}
 discovery.seed_hosts:
 {% for host in groups["elasticsearch"] %}
 {% if hostvars[host].master_eligible %}
-{#  - {{ host }} #}
-  - {{ hostvars[host].ansible_host }} {# to test w/o working dns #}
+  - {{ host }}
+{#  - {{ hostvars[host].ansible_host }} #} {# to test w/o working dns #}
 {% endif %}
 {% endfor %}
 

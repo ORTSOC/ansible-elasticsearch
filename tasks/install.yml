@@ -9,8 +9,3 @@
 - name: install elasticsearch
   apt:
     deb: "{{ elasticsearch_download_path }}"
-
-- name: delete downloaded package
-  ansible.builtin.file:
-    path: "{{ elasticsearch_download_path }}"
-    state: absent

@@ -1,6 +1,6 @@
 cluster.name: {{ es_cluster_name }}
 
-node.name: {{ ansible_hostname.split(".")[0] }}
+node.name: {{ inventory_hostname.split(".")[0] }}
 
 path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch

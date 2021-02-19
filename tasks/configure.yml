@@ -8,9 +8,3 @@
     group: elasticsearch
     mode: 0660
   notify: restart elasticsearch
-
-- name: enable service
-  systemd:
-    name: elasticsearch
-    enabled: yes
-    state: started

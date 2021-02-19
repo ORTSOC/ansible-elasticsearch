@@ -10,15 +10,13 @@ network.host: {{ ansible_host }}
 discovery.seed_hosts:
 {% for host in groups["elasticsearch"] %}
 {% if hostvars[host].master_eligible %}
-  - {{ host }}
-{#  - {{ hostvars[host].ansible_host }} #} {# to test w/o working dns #}
+  - {{ host }}.{{ domain }}
 {% endif %}
 {% endfor %}
 
 cluster.initial_master_nodes:
 {% for host in groups["elasticsearch"] %}
 {% if hostvars[host].master_eligible %}
-{#  - {{ host.split(".")[0] }} #}
-  - {{ hostvars[host].ansible_host }} {# to test w/o working dns #}
+  - {{ host }}.{{ domain }}
 {% endif %}
 {% endfor %}

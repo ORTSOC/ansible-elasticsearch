@@ -21,7 +21,7 @@ cluster.initial_master_nodes:
 {% endif %}
 {% endfor %}
 
-{% if elastic_ssl_cert %}
+{% if elastic_cert_chain %}
 xpack.security.transport.ssl.enabled: true
 xpack.security.transport.ssl.verification_mode: certificate 
 xpack.security.transport.ssl.client_authentication: required

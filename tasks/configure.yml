@@ -27,3 +27,9 @@
     group: elasticsearch
     mode: 0660
   notify: restart elasticsearch
+
+- name: set permissions on data directory
+  ansible.builtin.file:
+    path: /data
+    owner: elasticsearch
+    mode: 0700

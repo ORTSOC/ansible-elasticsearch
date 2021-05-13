@@ -1,9 +1,28 @@
 ---
-
+# create config from template and vars
 - name: generate elasticsearch config
   ansible.builtin.template:
     src: elasticsearch.yml.j2
     dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  notify: restart elasticsearch
+
+# generate cert files
+- name: generate ssl cert
+  ansible.builtin.template:
+    src: elastic-certificates.p12.j2
+    dest: /etc/elasticsearch/elastic-certificates.p12.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  notify: restart elasticsearch
+
+- name: generate http cert
+  ansible.builtin.template:
+    src: http.p12.j2
+    dest: /etc/elasticsearch/http.p12
     owner: root
     group: elasticsearch
     mode: 0660

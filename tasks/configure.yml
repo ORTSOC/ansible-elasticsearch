@@ -13,7 +13,7 @@
 - name: generate ssl cert
   ansible.builtin.template:
     src: elastic-certificates.p12.j2
-    dest: /etc/elasticsearch/elastic-certificates.p12.yml
+    dest: /etc/elasticsearch/elastic-certificates.p12
     owner: root
     group: elasticsearch
     mode: 0660

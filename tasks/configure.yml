@@ -34,3 +34,4 @@
     owner: elasticsearch
     mode: 0700
     state: directory
+  notify: restart elasticsearch

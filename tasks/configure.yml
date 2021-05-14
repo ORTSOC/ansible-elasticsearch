@@ -33,3 +33,4 @@
     path: /data
     owner: elasticsearch
     mode: 0700
+    state: directory

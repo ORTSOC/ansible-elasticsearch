@@ -14,8 +14,8 @@ Role Variables
 --------------
 
 - `es_cluster_name`: Name of the Elasticseach cluster
-- `elastic_cert_chain`: SSL cert from cert authority, which includes key and cert in p12 format.
-- `elastic_http_cert`: HTTPS cert from cert authority in p12 format
+- `elastic_cert_chain`: SSL cert from cert authority, which includes key and cert in p12 format, encoded into base 64.
+- `elastic_http_cert`: HTTPS cert from cert authority in p12 format, encoded into base 64.
 * `es_creds`: Dictionary of creds to configure
 
 Inventory Host Variables

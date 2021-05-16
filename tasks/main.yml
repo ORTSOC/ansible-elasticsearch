@@ -2,3 +2,4 @@
 
 - include: ./install.yml
 - include: ./configure.yml
+- include: ./auth.yml

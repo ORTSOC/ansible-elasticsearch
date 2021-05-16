@@ -1,0 +1,52 @@
+---
+# configure authentication for elasticsearch
+# this can only be done on one host
+
+- name: check if auth has been configured already
+  stat:
+    path: /usr/share/elasticseach/.auth_configured
+  register: auth_configured_file
+  when: inventory_hostname == groups["elasticsearch"][0]
+
+- name: configure bootstrap password
+  ansible.builtin.shell:
+    cmd: /usr/share/elasticsearch/bin/elasticsearch-keystore add bootstrap.password
+    stdin: es_creds.bootstrap
+    stdin_add_newline: yes
+  when: >
+    not auth_configured_file.stat.exists and
+    inventory_hostname == groups["elasticsearch"][0]
+
+# to configure auth with the API, we need elasticsearch to be running
+- meta: flush_handlers
+
+- name: configure user passwords
+  ansible.builtin.uri:
+    url: "{% if elastic_cert_chain is defined %}https://{% else %}http://{% endif %}localhost:9200/_security/user/{{ username }}/_password"
+    method: GET
+    url_username: elastic
+    url_password: "{{ es_creds.bootstrap }}"
+    body_format: json
+    body:
+      password: "{{ es_creds[username] }}"
+  with_usernames:
+    - apm_system
+    - kibana
+    - kibana_system
+    - logstash_system
+    - beats_system
+    - remote_monitoring_user
+    - elastic # this has to be last, it overrides the bootstrap password
+  when: >
+    not auth_configured_file.stat.exists and
+    inventory_hostname == groups["elasticsearch"][0]
+
+# https://stackoverflow.com/a/34929776
+- name: mark auth as completed
+  ansible.builtin.copy:
+    content: "yes"
+    dest: /usr/share/elasticseach/.auth_configured
+    force: no
+    owner: root
+    group: root
+    mode: 0664

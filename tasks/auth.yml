@@ -10,9 +10,7 @@
 
 - name: configure bootstrap password
   ansible.builtin.shell:
-    cmd: /usr/share/elasticsearch/bin/elasticsearch-keystore add bootstrap.password
-    stdin: es_creds.bootstrap
-    stdin_add_newline: yes
+    cmd: "printf {{ es_creds.bootstrap }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add bootstrap.password -x"
   when: >
     not auth_configured_file.stat.exists and
     inventory_hostname == groups["elasticsearch"][0]

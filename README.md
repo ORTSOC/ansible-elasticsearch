@@ -20,8 +20,7 @@ Role Variables
 Inventory Host Variables
 ----------------
 
-- `master_eligible=[bool]`: determines whether this given host can be declared as a master elastic node.
-- 
+- `master_eligible=[bool]`: Required. determines whether this given host can be declared as a master elastic node.
 Example Playbook
 ----------------
 

@@ -20,7 +20,7 @@
 
 - name: configure user passwords
   ansible.builtin.uri:
-    url: "{% if elastic_cert_chain is defined %}https://{% else %}http://{% endif %}localhost:9200/_security/user/{{ item }}/_password"
+    url: "{% if elastic_cert_chain is defined %}https://{% else %}http://{% endif %}{{ ansible_default_ipv4.address }}:9200/_security/user/{{ item }}/_password"
     method: GET
     url_username: elastic
     url_password: "{{ es_creds.bootstrap }}"

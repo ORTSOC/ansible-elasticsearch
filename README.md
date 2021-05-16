@@ -29,14 +29,14 @@ Example Playbook
 ```yaml
 es_cluster_name: ortsoc
 es_creds:
-  - bootstrap: hunter2
-  - elastic: hunter2
-  - apm_system: hunter2
-  - kibana: hunter2
-  - kibana_system: hunter2
-  - logstash_system: hunter2
-  - beats_system: hunter2
-  - remote_monitoring_user: hunter2
+  bootstrap: hunter2
+  elastic: hunter2
+  apm_system: hunter2
+  kibana: hunter2
+  kibana_system: hunter2
+  logstash_system: hunter2
+  beats_system: hunter2
+  remote_monitoring_user: hunter2
 ```
 
 Example Inventory File

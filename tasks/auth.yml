@@ -22,14 +22,14 @@
 
 - name: configure user passwords
   ansible.builtin.uri:
-    url: "{% if elastic_cert_chain is defined %}https://{% else %}http://{% endif %}localhost:9200/_security/user/{{ username }}/_password"
+    url: "{% if elastic_cert_chain is defined %}https://{% else %}http://{% endif %}localhost:9200/_security/user/{{ item }}/_password"
     method: GET
     url_username: elastic
     url_password: "{{ es_creds.bootstrap }}"
     body_format: json
     body:
-      password: "{{ es_creds[username] }}"
-  with_usernames:
+      password: "{{ es_creds[item] }}"
+  with_items:
     - apm_system
     - kibana
     - kibana_system

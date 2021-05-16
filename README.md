@@ -21,12 +21,26 @@ Inventory Host Variables
 ----------------
 
 - `master_eligible=[bool]`: Required. determines whether this given host can be declared as a master elastic node.
+
 Example Playbook
 ----------------
 
 ```yaml
 es_cluster_name: ortsoc
 ```
+
+Example Inventory File
+---------
+
+```
+[elasticsearch]
+es1.my.domain master_eligible=true
+es2.my.domain master_eligible=true
+es3.my.domain master_eligible=true
+es4.my.domain master_eligible=false
+es5.my.domain master_eligible=false
+```
+
 License
 -------
 

@@ -31,6 +31,7 @@
     body_format: json
     body:
       password: "{{ es_creds[item] }}"
+    verify: no
   with_items:
     - apm_system
     - kibana

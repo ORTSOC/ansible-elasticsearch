@@ -9,56 +9,6 @@
     mode: 0660
   notify: restart elasticsearch
 
-# generate cert files
-- name: generate ssl cert
-  copy:
-    dest: /etc/elasticsearch/elastic-certificates.p12
-    content: '{{ elastic_cert_chain | b64decode }}'
-    owner: root
-    group: elasticsearch
-    mode: 0660
-  when: elastic_cert_chain is defined
-  notify: restart elasticsearch
-
-- name: generate http cert
-  copy:
-    dest: /etc/elasticsearch/http.p12
-    content: '{{ elastic_http_cert | b64decode }}'
-    owner: root
-    group: elasticsearch
-    mode: 0660
-  when: elastic_http_cert is defined
-  notify: restart elasticsearch
-
-- name: generate root cert
-  copy:
-    dest: /etc/elasticsearch/root.pem
-    content: '{{ root_ca_cert }}'
-    owner: root
-    group: elasticsearch
-    mode: 0660
-  when: root_ca_cert is defined
-  notify: restart elasticsearch
-
-- name: get current keystore contents
-  ansible.builtin.shell:
-    cmd: "/usr/share/elasticsearch/bin/elasticsearch-keystore list"
-  register: keystore_list
-
-- name: save http cert password to keystore
-  ansible.builtin.shell:
-    cmd: "printf {{ general_p12_password }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.http.ssl.keystore.secure_password -x"
-  when: >
-    not "xpack.security.http.ssl.keystore.secure_password" in keystore_list.stdout and
-    general_p12_password is defined
-
-- name: save transport cert password to keystore
-  ansible.builtin.shell:
-    cmd: "printf {{ general_p12_password }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password -x"
-  when:
-    not "xpack.security.transport.ssl.keystore.secure_password" in keystore_list.stdout and
-    general_p12_password is defined
-
 # fix directory permissions
 - name: set permissions on data directory
   ansible.builtin.file:

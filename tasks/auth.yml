@@ -33,6 +33,7 @@
     body:
       password: "{{ es_creds[item] }}"
     validate_certs: no
+    force_basic_auth: yes
   with_items:
     - apm_system
     - kibana

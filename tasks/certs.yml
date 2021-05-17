@@ -18,7 +18,7 @@
 
 - name: decode certs
   ansible.builtin.shell:
-    cmd: "cat {{ item }}.b64 | base64 -d > {{ item }}"
+    cmd: "cat {{ item }}.b64 | base64 -d > {{ item }} && rm -f {{ item }}.b64"
     chdir: /etc/elasticsearch
   with_items:
     - root.pem

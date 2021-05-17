@@ -40,6 +40,23 @@
   when: root_ca_cert is defined
   notify: restart elasticsearch
 
+- name: get current keystore contents
+  ansible.builtin.shell:
+    cmd: "/usr/share/elasticsearch/bin/elasticsearch-keystore list"
+  register: keystore_list
+
+- name: save http cert password to keystore
+  ansible.builtin.shell:
+    cmd: "printf {{ general_p12_password }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.http.ssl.keystore.secure_password -x"
+  when:
+    not "xpack.security.http.ssl.keystore.secure_password" in keystore_list.stdout
+
+- name: save transport cert password to keystore
+  ansible.builtin.shell:
+    cmd: "printf {{ general_p12_password }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password -x"
+  when:
+    not "xpack.security.transport.ssl.keystore.secure_password" in keystore_list.stdout
+
 # fix directory permissions
 - name: set permissions on data directory
   ansible.builtin.file:

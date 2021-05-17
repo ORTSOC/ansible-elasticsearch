@@ -48,14 +48,16 @@
 - name: save http cert password to keystore
   ansible.builtin.shell:
     cmd: "printf {{ general_p12_password }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.http.ssl.keystore.secure_password -x"
-  when:
-    not "xpack.security.http.ssl.keystore.secure_password" in keystore_list.stdout
+  when: >
+    not "xpack.security.http.ssl.keystore.secure_password" in keystore_list.stdout and
+    general_p12_password is defined
 
 - name: save transport cert password to keystore
   ansible.builtin.shell:
     cmd: "printf {{ general_p12_password }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password -x"
   when:
-    not "xpack.security.transport.ssl.keystore.secure_password" in keystore_list.stdout
+    not "xpack.security.transport.ssl.keystore.secure_password" in keystore_list.stdout and
+    general_p12_password is defined
 
 # fix directory permissions
 - name: set permissions on data directory

@@ -14,6 +14,7 @@
   ansible.builtin.shell:
     cmd: "printf {{ es_creds.bootstrap }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add bootstrap.password -x"
   when: >
+    auth_configured_file.stat is defined and
     not auth_configured_file.stat.exists and
     inventory_hostname == groups["elasticsearch"][0] and
     elastic_cert_chain is defined
@@ -39,6 +40,7 @@
     - remote_monitoring_user
     - elastic # this has to be last, it overrides the bootstrap password
   when: >
+    auth_configured_file.stat is defined and
     not auth_configured_file.stat.exists and
     inventory_hostname == groups["elasticsearch"][0] and
     elastic_cert_chain is defined
@@ -53,6 +55,7 @@
     group: root
     mode: 0664
   when: >
+    auth_configured_file.stat is defined and
     not auth_configured_file.stat.exists and
     inventory_hostname == groups["elasticsearch"][0] and
     elastic_cert_chain is defined

@@ -6,14 +6,17 @@
   stat:
     path: /usr/share/elasticseach/.auth_configured
   register: auth_configured_file
-  when: inventory_hostname == groups["elasticsearch"][0]
+  when: >
+    inventory_hostname == groups["elasticsearch"][0] and
+    elastic_cert_chain is defined
 
 - name: configure bootstrap password
   ansible.builtin.shell:
     cmd: "printf {{ es_creds.bootstrap }} | /usr/share/elasticsearch/bin/elasticsearch-keystore add bootstrap.password -x"
   when: >
     not auth_configured_file.stat.exists and
-    inventory_hostname == groups["elasticsearch"][0]
+    inventory_hostname == groups["elasticsearch"][0] and
+    elastic_cert_chain is defined
 
 # to configure auth with the API, we need elasticsearch to be running
 - meta: flush_handlers
@@ -37,7 +40,8 @@
     - elastic # this has to be last, it overrides the bootstrap password
   when: >
     not auth_configured_file.stat.exists and
-    inventory_hostname == groups["elasticsearch"][0]
+    inventory_hostname == groups["elasticsearch"][0] and
+    elastic_cert_chain is defined
 
 # https://stackoverflow.com/a/34929776
 - name: mark auth as completed
@@ -48,3 +52,7 @@
     owner: root
     group: root
     mode: 0664
+  when: >
+    not auth_configured_file.stat.exists and
+    inventory_hostname == groups["elasticsearch"][0] and
+    elastic_cert_chain is defined

@@ -1,6 +1,7 @@
 ---
 
 - name: restart elasticsearch
+  throttle: 1
   systemd:
     name: elasticsearch
     enabled: yes

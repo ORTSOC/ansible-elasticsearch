@@ -19,6 +19,7 @@
 - name: decode certs
   ansible.builtin.shell:
     cmd: "cat {{ item }}.b64 | base64 -d > {{ item }}"
+    chdir: /etc/elasticsearch
   with_items:
     - root.pem
     - http.p12

@@ -5,19 +5,19 @@ node.name: {{ inventory_hostname.split(".")[0] }}
 path.data: /data/elasticsearch
 path.logs: /var/log/elasticsearch
 
-network.host: {{ ansible_host }}
+network.host: {{ ansible_default_ipv4.address }}
 
 discovery.seed_hosts:
 {% for host in groups["elasticsearch"] %}
 {% if hostvars[host].master_eligible is defined and hostvars[host].master_eligible %}
-  - {{ host }}.{{ domain }}
+  - {{ host }}
 {% endif %}
 {% endfor %}
 
 cluster.initial_master_nodes:
 {% for host in groups["elasticsearch"] %}
 {% if hostvars[host].master_eligible is defined and hostvars[host].master_eligible %}
-  - {{ host }}
+  - {{ host.split(".")[0] }}
 {% endif %}
 {% endfor %}
 

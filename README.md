@@ -37,6 +37,13 @@ es_creds:
   logstash_system: hunter2
   beats_system: hunter2
   remote_monitoring_user: hunter2
+elastic_cert_chain: MIILrgIBAzCCCy0GCSqGSIb3DQEHAaCCCx4EggsaMIILFjCCBk0GCSqGSIb3DQEHAaCCBj4EggY6
+MIIGNjCCBjIGCyqGSIb3DQEMCgECoIIFgzCCBX8wgZEGCSqGSIb3DQEFDTCBgzBiBgkqhkiG9w0B
+BQwwVQRAAybtIFxzVkZNoziI+yElVH0xywyf23F0+c5DNMQB7...
+elastic_http_cert: MCgECoIIFgzCCBX8wgZEGCSqGSIb3DQEFDTCBgzBiBgkqhkiG9w0B
+BQwwVQRAAybtIFxzVkZNoziI+yElVH0xywyfGSIb3DQEHAaCCBj4EggY6
+MIIGNjCCBjIGCyqGSIb3DQEMCgECoIIFgzCCBX8wgZEG...
+
 ```
 
 Example Inventory File

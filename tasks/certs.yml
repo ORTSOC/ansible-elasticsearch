@@ -8,12 +8,13 @@
     group: elasticsearch
     mode: 0660
   with_items:
-    - contents: "{{ root_ca_certs | default('') }}"
+    - contents: "{{ root_ca_cert | default('') }}"
       filename: root.pem
     - contents: "{{ elastic_http_cert | default('') }}" 
       filename: http.p12
     - contents: "{{ elastic_cert_chain | default('') }}" 
       filename: elastic-certificates.p12
+  no_log: true
 
 - name: decode certs
   ansible.builtin.shell:
@@ -36,6 +37,7 @@
     not "xpack.security.http.ssl.keystore.secure_password" in keystore_list.stdout and
     general_p12_password is defined
   notify: restart elasticsearch
+  no_log: true
 
 - name: save transport cert password to keystore
   ansible.builtin.shell:
@@ -44,3 +46,4 @@
     not "xpack.security.transport.ssl.keystore.secure_password" in keystore_list.stdout and
     general_p12_password is defined
   notify: restart elasticsearch
+  no_log: true

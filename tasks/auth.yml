@@ -4,7 +4,7 @@
 
 - name: check if auth has been configured already
   stat:
-    path: /usr/share/elasticseach/.auth_configured
+    path: /usr/share/elasticsearch/.auth_configured
   register: auth_configured_file
   when: >
     inventory_hostname == groups["elasticsearch"][0] and
@@ -51,7 +51,7 @@
 - name: mark auth as completed
   ansible.builtin.copy:
     content: "yes"
-    dest: /usr/share/elasticseach/.auth_configured
+    dest: /usr/share/elasticsearch/.auth_configured
     force: no
     owner: root
     group: root

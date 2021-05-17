@@ -3,7 +3,7 @@
 - name: save encoded certs
   ansible.builtin.copy:
     dest: "/etc/elasticsearch/{{ item.filename }}.b64"
-    content: '{{ item.var }}'
+    content: '{{ item.contents }}'
     owner: root
     group: elasticsearch
     mode: 0660

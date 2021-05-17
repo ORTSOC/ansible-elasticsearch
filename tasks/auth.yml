@@ -34,6 +34,7 @@
       password: "{{ es_creds[item] }}"
     validate_certs: no
     force_basic_auth: yes
+    timeout: 300 # sometimes slow to start, shouldn't take remotely this long
   with_items:
     - apm_system
     - kibana

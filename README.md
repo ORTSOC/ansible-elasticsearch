@@ -19,6 +19,7 @@ Role Variables
 - `es_creds`: Dictionary of creds to configure
 - `general_p12_password`: Password for the p12 cert to use
   - Note that this is stored in plaintext in `/etc/elasticsearch/elasticsearch.yml`, readable by `root` and `elasticsearch` only. A future action item is to move this into the secure keystore.
+- `root_ca_cert`: Root CA cert, used for chain validation
 
 Inventory Host Variables
 ----------------

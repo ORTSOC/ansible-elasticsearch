@@ -30,6 +30,16 @@
   when: elastic_http_cert is defined
   notify: restart elasticsearch
 
+- name: generate root cert
+  copy:
+    dest: /etc/elasticsearch/root.pem
+    content: '{{ root_ca_cert }}'
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  when: root_ca_cert is defined
+  notify: restart elasticsearch
+
 # fix directory permissions
 - name: set permissions on data directory
   ansible.builtin.file:

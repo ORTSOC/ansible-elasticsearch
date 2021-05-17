@@ -17,7 +17,8 @@
     auth_configured_file.stat is defined and
     not auth_configured_file.stat.exists and
     inventory_hostname == groups["elasticsearch"][0] and
-    elastic_cert_chain is defined
+    elastic_cert_chain is defined and
+    "bootstrap.password" not in keystore_list.stdout
 
 # to configure auth with the API, we need elasticsearch to be running
 - meta: flush_handlers
@@ -31,7 +32,7 @@
     body_format: json
     body:
       password: "{{ es_creds[item] }}"
-    verify: no
+    validate_certs: no
   with_items:
     - apm_system
     - kibana
